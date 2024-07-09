@@ -271,3 +271,66 @@ Status of the transfer pending
 Status of the transfer pending
 Status of the transfer executed
 ```
+
+
+## Issues encountered when following the original guide
+
+### Latest SDK cause problems
+
+At the time of creation of the original guide, the latest SDK version was 2.8.0
+Now its 2.11.0 and it cause problem on the very hardhat bootstrap. That's why I suggest to use 2.8.0 in this guide.
+
+See logs below:
+
+```
+i@is-MacBook-Air hh-multichain % npx hardhat run scripts/deployMultichain.js --network sepolia
+An unexpected error occurred:
+
+Error: Cannot find module '../../config/config.js'
+Require stack:
+- /Users/i/sygma/hh-multichain/node_modules/@buildwithsygma/sygma-sdk-core/dist-cjs/chains/EVM/genericMessage.js
+- /Users/i/sygma/hh-multichain/node_modules/@buildwithsygma/sygma-sdk-core/dist-cjs/chains/EVM/index.js
+- /Users/i/sygma/hh-multichain/node_modules/@buildwithsygma/sygma-sdk-core/dist-cjs/chains/index.js
+- /Users/i/sygma/hh-multichain/node_modules/@buildwithsygma/sygma-sdk-core/dist-cjs/index.js
+- /Users/i/sygma/hh-multichain/node_modules/@chainsafe/hardhat-plugin-multichain-deploy/dist/src/index.js
+- /Users/i/sygma/hh-multichain/hardhat.config.js
+- /Users/i/sygma/hh-multichain/node_modules/hardhat/internal/core/config/config-loading.js
+- /Users/i/sygma/hh-multichain/node_modules/hardhat/internal/cli/cli.js
+- /Users/i/sygma/hh-multichain/node_modules/hardhat/internal/cli/bootstrap.js
+    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:1145:15)
+    at Function.Module._load (node:internal/modules/cjs/loader:986:27)
+    at Module.require (node:internal/modules/cjs/loader:1233:19)
+    at require (node:internal/modules/helpers:179:18)
+    at Object.<anonymous> (/Users/i/sygma/hh-multichain/node_modules/@buildwithsygma/sygma-sdk-core/src/chains/EVM/genericMessage.ts:8:1)
+    at Module._compile (node:internal/modules/cjs/loader:1358:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+    at Module.load (node:internal/modules/cjs/loader:1208:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1024:12)
+    at Module.require (node:internal/modules/cjs/loader:1233:19) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/Users/i/sygma/hh-multichain/node_modules/@buildwithsygma/sygma-sdk-core/dist-cjs/chains/EVM/genericMessage.js',
+    '/Users/i/sygma/hh-multichain/node_modules/@buildwithsygma/sygma-sdk-core/dist-cjs/chains/EVM/index.js',
+    '/Users/i/sygma/hh-multichain/node_modules/@buildwithsygma/sygma-sdk-core/dist-cjs/chains/index.js',
+    '/Users/i/sygma/hh-multichain/node_modules/@buildwithsygma/sygma-sdk-core/dist-cjs/index.js',
+    '/Users/i/sygma/hh-multichain/node_modules/@chainsafe/hardhat-plugin-multichain-deploy/dist/src/index.js',
+    '/Users/i/sygma/hh-multichain/hardhat.config.js',
+    '/Users/i/sygma/hh-multichain/node_modules/hardhat/internal/core/config/config-loading.js',
+    '/Users/i/sygma/hh-multichain/node_modules/hardhat/internal/cli/cli.js',
+    '/Users/i/sygma/hh-multichain/node_modules/hardhat/internal/cli/bootstrap.js'
+  ]
+}
+```
+
+### A few minor issues and suggestions
+
+* The original guide has minor indentation issues in code snippets
+* I suggest to investigate how to use multichain-deploy with Hardhat Ignition, because in the latest versions they include ignition plugin **by default**. It allows to write deploy scenarios in declarative fashion and then run a simple command to execute these so-called ignition modules.
+
+### General Message Passing
+
+Both my `setNameCrossChain.js` script and the `transfer.ts` script from SDK examples repo work well, and produce similar transactions on the destination chain. [See example transaction](https://holesky.etherscan.io/tx/0xdac97dc1f5b57d8b86162df53fa4da4714247bc42526f4258c480e0f1d446183/advanced#internal)
+
+You may notice that the actual `setName` call fails.
+However, the method works ok if you invoke it [with etherscan UI here](https://holesky.etherscan.io/address/0xaf81a55b29472089762af5ebdbfc6d6e0b4ff729#writeContract)
+
