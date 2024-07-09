@@ -1,0 +1,21 @@
+{
+  "name": "hh-multichain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@buildwithsygma/sygma-sdk-core": "2.8.0",
+    "@chainsafe/hardhat-plugin-multichain-deploy": "^1.0.4",
+    "@chainsafe/hardhat-ts-artifact-plugin": "^1.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-web3-v4": "^1.0.0",
+    "dotenv": "^16.4.5",
+    "hardhat": "^2.22.6",
+    "ethers": "5.6.2"
+  }
+}
