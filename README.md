@@ -123,6 +123,9 @@ Let’s start with creating a `scripts/setNameCrossChain.js` script.
 
 Inspiring by the original GMP example from the `sygma-sdk` repo, let’s write our own, within the hardhat environment:
 
+<details>
+  <summary>scripts/setNameCrossChain.js</summary>
+
 ```js
 require('dotenv').config();
 const {
@@ -247,7 +250,9 @@ main().catch((error) => {
 });
 ```
 
-Lines 74 to 90 do the actual magic of constructing a payload with encoded call to the `setName` function.
+</details>
+
+Lines 74 to 90 of the `scripts/setNameCrossChain.js` file do the actual magic of constructing a payload with encoded call to the `setName` function.
 
 Other pieces of logic are reading variables from `.env` file and some waiting logic for a succesfull bridge transfer.
 
